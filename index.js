@@ -1,8 +1,15 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const crypto = require('crypto')
 
-const USERS = [];
+const USERS = [
+    {
+        email: "billiejoearmstrong@gmail.com",
+        password: "oogabooga",
+        is_admin: false
+    }
+];
 
 const QUESTIONS = [
     {
@@ -23,62 +30,92 @@ const SUBMISSIONS = [
 ]
 
 
-app.post('/signup', (req, res) => {
-    // Add logic to decode body, which should have email and password
+function generateRandomToken(length) {
+    return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
+}
 
-    // Store email and password (as is for now) in in the USERS array above (only if the user with the given email doesn't exist)
+
+app.post('/signup', (req, res) => {
+    // Decode body, which should have email and password
+    const { email, password } = req.body;
+
+    // Store email and password (as is for now) in the USERS array above (only if the user with the given email doesn't already exist)
+    const existingUser = USERS.find(user => user.email === email);
+    if (existingUser) {
+        return res.status(400).json({ error: 'User already exists. Try logging in instead!' });
+    }
+
+    const newUser = { email, password };
+    USERS.push(newUser);
 
     // Return back 200 status code to client
-    res.send('Hello World from signup!')
-})
+    res.sendStatus(200);
+});
 
 
 app.get('/login', (req, res) => {
-    // Add logic to decode body, which should have email and password
+    // Decode body, which should have email and password
+    const { email, password } = req.body;
 
-    // Check if user with given email exists in USERS array
-    // Also ensure that password is same
+    // Check if user with given email and password exist
+    const user = USERS.find(user => user.email === email && user.password === password);
 
-    // If password is same, return back 200 status code to client
+    if (!user) {
+        // If user does not exist, return a 401 status code to client
+        return res.sendStatus(401);
+    }
+
+    // If password is correct, return back 200 status code to client
     // Also send back a token (any random string with do for now)
-    // If the password is not the same, return back 401 status code to client
-  res.json({
-    name: 'Harriet',
-    age: 29
-  })
-})
+    const token = generateRandomToken(264);
+    res.status(200).json({ token });
+});
 
 
 app.get('/questions', (req, res) => {
-    // return the client all the questions in the QUESTIONS array
-  res.send(`
-  <html>
-  <body>
-    <h1 style="color:red">
-        Chat
-    </h1>
-  </body>
-  </html>
-  `)
-})
+    // Return the client all the questions in the QUESTIONS array
+    res.status(200).json({ questions: QUESTIONS });
+});
 
 
 app.get('/submissions', (req, res) => {
-    // return the user's submissions for this problem
-    res.send('Hello World from submissions!')
-})
+    const userId = req.query.userId; // Assuming the user's ID is provided as a query parameter
+    const problemId = req.query.problemId; // Assuming the problem's ID is provided as a query parameter
+
+    // Find the user's submissions for this problem
+    const userSubmissions = SUBMISSIONS.filter(submission => submission.userId === userId && submission.problemId === problemId);
+
+    // Return the user's submissions for this problem (empty if invalid user/problem?)
+    res.status(200).json({ submissions: userSubmissions });
+});
 
 
-app.post("/submissions", (req, res) => {
-    // let the user submit a problem, randomly accept or reject the solution
-    // Store the submission in the SUBMISSION array
-})
+app.post('/submissions', (req, res) => {
+    // Let the user submit a problem, randomly accept or reject the solution
+    const { userId, problemId, solution } = req.body;
+
+    // Randomly accept or reject the solution
+    const isAccepted = Math.random() < 0.5; // Adjust the probability as desired
+
+    // Create a new submission object
+    const newSubmission = {
+        userId,
+        problemId,
+        solution,
+        isAccepted
+    };
+
+    // Store the submission in the SUBMISSIONS array above
+    SUBMISSIONS.push(newSubmission);
+
+    // Return the status of the submission to the client
+    res.status(200).json({ isAccepted });
+});
 
 
 // TODO:
 // Create a route that lets an admin add a new problem
 // ensure that only admins can do that
-
 
 
 ////////////////////////////////////////////////////////////////////////////////
