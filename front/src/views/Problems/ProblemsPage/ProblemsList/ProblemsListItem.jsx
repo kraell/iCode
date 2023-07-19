@@ -36,12 +36,12 @@ export function ProblemsListItem(problem) {
         </>
     )
 }
-ProblemsListItem.propTypes = {
-    id: PropTypes.number.isRequired,
-    index: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    acceptanceRate: PropTypes.string.isRequired,
-    difficulty: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    examples: PropTypes.arrayOf(Object),
-};
+// ProblemsListItem.propTypes = {
+//     id: PropTypes.number.isRequired,
+//     index: PropTypes.number.isRequired,
+//     title: PropTypes.string.isRequired,
+//     acceptanceRate: PropTypes.string.isRequired,
+//     difficulty: PropTypes.string.isRequired,
+//     description: PropTypes.string,
+//     examples: PropTypes.arrayOf(Object),
+// };

@@ -2,7 +2,6 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Difficulty } from 'views/Problems/ProblemDifficulty';
 
-
 export function ProblemDetail({
     id,
     title,
@@ -28,6 +27,13 @@ export function ProblemDetail({
             <Examples examples={examples} />
             <br/>
             <Constraints constraints={constraints} />
+            <br/>
+            <Statistics 
+                numAcceptedSubmissions={numAcceptedSubmissions}
+                numTotalSubmissions={numTotalSubmissions}
+                acceptanceRate={acceptanceRate}
+            >
+            </Statistics>
         </div>
     )
 }
@@ -39,7 +45,7 @@ ProblemDetail.propTypes = {
     constraints: PropTypes.arrayOf(Object).isRequired,
     numAcceptedSubmissions: PropTypes.number.isRequired,
     numTotalSubmissions: PropTypes.number.isRequired,
-    acceptanceRate: PropTypes.string.isRequired,
+    acceptanceRate: PropTypes.number.isRequired,
 }
 
 
@@ -105,3 +111,24 @@ function Constraints({ constraints }){
 Constraints.propTypes = {
     constraints: PropTypes.arrayOf(Object).isRequired,
 }
+
+
+function Statistics({ 
+    numAcceptedSubmissions,
+    numTotalSubmissions,
+    acceptanceRate,
+}) {
+    let acRateAsPercentage = (acceptanceRate * 100).toFixed(1);
+    return (
+        <>
+        <p>
+            Accepted: <b>{numAcceptedSubmissions}</b> | Submissions: <b>{numTotalSubmissions}</b> | Acceptance Rate: <b>{acRateAsPercentage}%</b>
+        </p>
+        </>
+    )
+ }
+ Statistics.propTypes = {
+    numAcceptedSubmissions: PropTypes.number.isRequired,
+    numTotalSubmissions: PropTypes.number.isRequired,
+    acceptanceRate: PropTypes.number.isRequired,
+ }
