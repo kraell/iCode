@@ -40,6 +40,9 @@ export const problems1 = [
             },
             "py": {
                 starterCode: "beep boop i am python code"
+            },
+            "cpp": {
+                starterCode: "✦ ⑨ ✹ ❻ ◻ ◻ ⇨ 🖫 ◻ ♓ ★ 📬"
             }
         }
     },
@@ -70,7 +73,8 @@ export const problems1 = [
             "here is another hint"
         ],
         numAcceptedSubmissions: 10,
-        numTotalSubmissions: 20
+        numTotalSubmissions: 20,
+        dataByLanguage: {}
     },
     {
         id: 2,
@@ -99,7 +103,8 @@ export const problems1 = [
             "here is another hint"
         ],
         numAcceptedSubmissions: 10,
-        numTotalSubmissions: 20
+        numTotalSubmissions: 20,
+        dataByLanguage: {}
     }
 ]
 
@@ -132,7 +137,8 @@ export const problems2 = [
             "here is another hint"
         ],
         numAcceptedSubmissions: 10,
-        numTotalSubmissions: 20
+        numTotalSubmissions: 20,
+        dataByLanguage: {}
     },
     {
         id: 4,
@@ -161,7 +167,8 @@ export const problems2 = [
             "here is another hint"
         ],
         numAcceptedSubmissions: 10,
-        numTotalSubmissions: 20
+        numTotalSubmissions: 20,
+        dataByLanguage: {}
     },
     {
         id: 5,
@@ -190,7 +197,8 @@ export const problems2 = [
             "here is another hint"
         ],
         numAcceptedSubmissions: 10,
-        numTotalSubmissions: 20
+        numTotalSubmissions: 20,
+        dataByLanguage: {}
     }
 ]
 
@@ -221,18 +229,3 @@ export const languages = [
         "slug": "go",
     }
 ]
-
-// export const languages = [
-//     "JavaScript",
-//     "Python",
-//     "C++",
-//     "C",
-//     "Rust",
-//     "Golang",
-// ]
-
-
-export const codeSnippetStubs = {
-    "js": "function solution() {\n  // Your code here\n}\n",
-    "py": "def solution():\n    # Your code here\n",
-}
