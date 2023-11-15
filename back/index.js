@@ -176,17 +176,18 @@ app.get('/problems/:id', (req, res) => {
 
 
 app.get('/me', auth, (req, res) => {
-    const user = USERS.find(u => u.id == req.userId);
-     
+    const user = USERS.find(u => u.userId == req.userId);
+     // Don't want to return password in plaintext
+    const { password, ...user_without_password } = user;
     res.json({
-        user
+        user: user_without_password
     })
 })
 
 
 app.post('/signup', (req, res) => {
     // Decode body, which should have email and password
-    console.log('[/SIGNUP] req.body =', req.body)
+    console.log('[/signup] req.body =', req.body)
     const email = req.body.email;
     const password = req.body.password;
     if (USERS.find(u => u.email === email)) {
@@ -196,7 +197,7 @@ app.post('/signup', (req, res) => {
     }
 
     USERS.push({
-        email, password, id: USER_ID_COUNTER++
+        email, password, userId: USER_ID_COUNTER++
     });
 
     return res.json({
@@ -207,7 +208,7 @@ app.post('/signup', (req, res) => {
 
 app.get('/login', (req, res) => {
     // Decode body, which should have email and password
-    console.log('[/LOGIN] req.body =', req.body)
+    console.log('[/login] req.body =', req.body)
     const email = req.body.email;
     const password = req.body.password;
 
@@ -239,9 +240,30 @@ app.get('/login', (req, res) => {
 
 
 app.get('/submissions/:problemId', auth, (req, res) => {
-    const userId = req.query.userId; // Assuming the user's ID is provided as a query parameter
-    const problemId = req.query.problemId; // Assuming the problem's ID is provided as a query parameter
+    console.log('[/submissions/:problemId] req.body =', req.body);
+    const userId = req.userId; // Provided by auth middleware
+    const problemId = req.params.problemId; // Assuming the problem's ID is provided as a query parameter
     const submissions = SUBMISSIONS.filter(s => s.problemId === problemId && s.userId === req.userId);
+
+    console.log('[/submissions/:problemId] req.userId =', req.userId);
+    console.log('[/submissions/:problemId] req.query.problemId =', req.query.problemId);
+
+    // Error check
+    // This is somewhat intensive so only do it if submissions comes up empty
+    if (!submissions.length) {
+        const users = USERS.filter(u => u.userId === userId);
+        if (!users.length) {
+            return res.status(501).json({ 
+                msg: "Error: Invalid userId in request: " + userId
+            });
+        }
+        const problems = PROBLEMS.filter(p => p.problemId === problemId);
+        if (!problems.length) {
+            return res.status(403).json({ 
+                msg: "Error: user does not have any submissions for this problem!"
+            });
+        }
+    }
 
     // Return the user's submissions for this problem (empty if invalid user/problem?)
     res.json({ 
