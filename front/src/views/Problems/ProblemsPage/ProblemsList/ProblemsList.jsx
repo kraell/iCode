@@ -30,9 +30,9 @@ export function ProblemsList(props) {
             <tbody>
                 {problems.map((problem, idx) =>
                     <ProblemsListItem
-                        key={problem.id}
-                        id={problem.id}
+                        key={problem.problemId}
                         index={idx}
+                        problemId={problem.problemId}
                         title={problem.title}
                         difficulty={problem.difficulty}
                         acceptanceRate={problem.acceptanceRate}

@@ -1,6 +1,6 @@
 export const problems1 = [
     {
-        id: 0,
+        problemId: 0,
         title: "Two Sum",
         difficulty: "Easy",
         acceptanceRate: 0.422110284,
@@ -47,7 +47,7 @@ export const problems1 = [
         }
     },
     {
-        id: 1,
+        problemId: 1,
         title: "title1",
         difficulty: "Medium",
         acceptanceRate: 0.322110284,
@@ -77,7 +77,7 @@ export const problems1 = [
         dataByLanguage: {}
     },
     {
-        id: 2,
+        problemId: 2,
         title: "title2",
         difficulty: "Hard",
         acceptanceRate: 0.122110284,
@@ -111,7 +111,7 @@ export const problems1 = [
 
 export const problems2 = [
     {
-        id: 3,
+        problemId: 3,
         title: "title3",
         difficulty: "Easy",
         acceptanceRate: 0.422110284,
@@ -141,7 +141,7 @@ export const problems2 = [
         dataByLanguage: {}
     },
     {
-        id: 4,
+        problemId: 4,
         title: "title4",
         difficulty: "Medium",
         acceptanceRate: 0.322110284,
@@ -171,7 +171,7 @@ export const problems2 = [
         dataByLanguage: {}
     },
     {
-        id: 5,
+        problemId: 5,
         title: "title5",
         difficulty: "Hard",
         acceptanceRate: 0.122110284,

@@ -23,19 +23,19 @@ function sanitizeTitleForURL(title) {
 
 
 export function ProblemsListItem(problem) {
-    const id = problem.id;
+    const problemId = problem.problemId;
     const index = problem.index;
     const title = problem.title;
     const difficulty = problem.difficulty;
     const acceptanceRate = problem.acceptanceRate;
-    console.log(problem)
+    console.log(problemId, difficulty)
 
     return (
         <>
-        <tr key={id}>
+        <tr key={problemId}>
             <td>
                 <NavLink to={`${ROUTES.PROBLEM}/${sanitizeTitleForURL(title)}`} className='nav-link problem'>
-                    {id+1}. {title}
+                    {problemId+1}. {title}
                 </NavLink>
             </td>
             <td><Difficulty level={difficulty} /></td>
@@ -49,7 +49,7 @@ export function ProblemsListItem(problem) {
     )
 }
 ProblemsListItem.propTypes = {
-    id: PropTypes.number.isRequired,
+    problemId: PropTypes.number.isRequired,
     index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     acceptanceRate: PropTypes.number.isRequired,
