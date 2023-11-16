@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { ProblemPage } from 'views/Problems/ProblemPage/ProblemPage';
+import { FourOhFour } from 'views/FourOhFour/FourOhFour';
 
 
 function desanitizeTitleFromURL(title) {
@@ -59,6 +60,7 @@ function App() {
           <Route path={ROUTES.PROBLEMS_ALL} element={<ProblemsPage />} />
           <Route path={ROUTES.SIGNUP} element={<SignUpPage />} />
           <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+          <Route path={ROUTES.OTHER} element={<FourOhFour />} />
         </Routes>
       </div>
     </Router>

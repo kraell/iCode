@@ -5,5 +5,6 @@ export const ROUTES = {
     PROBLEMS_ALL: "/problemset/all",
     LOGIN: "/login",
     SIGNUP: "/signup",
+    OTHER: "*"
 }
   
