@@ -6,6 +6,8 @@ const { auth } = require('./middleware');
 const JWT_SECRET = "secret";
 var jwt = require('jsonwebtoken');
 let USER_ID_COUNTER = 1;
+const cors = require("cors");
+app.use(cors());
 app.use(express.json()); // Middleware to parse JSON requests
 
 const USERS = [
