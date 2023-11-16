@@ -214,7 +214,7 @@ app.post('/signup', (req, res) => {
 });
 
 
-app.get('/login', (req, res) => {
+app.post('/login', (req, res) => {
     // Decode body, which should have email and password
     console.log('[/login] req.body =', req.body)
     const email = req.body.email;
@@ -226,7 +226,7 @@ app.get('/login', (req, res) => {
     if (!user) {
         // If user does not exist, return a 401 status code to client
         return res.status(403).json({
-            msg: "User not found"
+            msg: `User with email address '${email}' not found`
         });
     }
 
