@@ -192,18 +192,24 @@ app.post('/signup', (req, res) => {
     console.log('[/signup] req.body =', req.body)
     const email = req.body.email;
     const password = req.body.password;
+
     if (USERS.find(u => u.email === email)) {
+        // User already exists
         return res.status(403).json({
             msg: "Email already registered"
         });
     }
 
-    USERS.push({
-        email, password, userId: USER_ID_COUNTER++
-    });
+    // Save user
+    const user = { email, password, userId: USER_ID_COUNTER++ };
+    USERS.push(user);
+
+    // Get user object without password
+    const { password: userPassword, ...user_without_password } = user;
 
     return res.json({
-        msg: "Success"
+        msg: "Success",
+        user: user_without_password
     });
 });
 
