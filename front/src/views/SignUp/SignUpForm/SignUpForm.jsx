@@ -18,7 +18,6 @@ export function SignUpForm() {
     };
 
     const handleSubmit = async (e) => {
-        // e.preventDefault();
         const data = {
             email: email,
             password: password
@@ -35,9 +34,9 @@ export function SignUpForm() {
         const json = await response.json();
         console.log(json);
         if (response.ok) {
-            alert(`User, ${email}, is now registered! (Don't forget your password... You can't reset it!)`)
+            alert(`[${json.msg}] ${email} is now registered! (Don't forget your password... You can't reset it!)`)
         } else {
-            alert(`User, ${email}, already exists! Please log in instead. (Forgot your password? Sorry. You'll have to create a new account.)`)
+            alert(`[${json.msg}] ${email} is already registered! Please log in instead. (Forgot your password? Sorry. You'll have to create a new account.)`)
         }
     };
 
