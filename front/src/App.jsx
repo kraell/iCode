@@ -43,11 +43,11 @@ function App() {
                 <Nav.Link as={Link} to={ROUTES.PROBLEMS_ALL}>
                   Problems
                 </Nav.Link>
-                <Nav.Link as={Link} to={ROUTES.SIGNUP}>
-                  Sign Up
-                </Nav.Link>
                 <Nav.Link as={Link} to={ROUTES.LOGIN}>
                   Log In
+                </Nav.Link>
+                <Nav.Link as={Link} to={ROUTES.SIGNUP}>
+                  Sign Up
                 </Nav.Link>
               </Nav>
             </Navbar.Collapse>
