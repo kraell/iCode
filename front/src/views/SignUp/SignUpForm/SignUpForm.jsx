@@ -17,7 +17,7 @@ export function SignUpForm() {
         setPassword(e.target.value);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async () => {
         const data = {
             email: email,
             password: password
