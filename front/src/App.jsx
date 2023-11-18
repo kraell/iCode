@@ -56,7 +56,8 @@ function App() {
         <Routes>
           <Route path={ROUTES.ROOT} element={<HomePage />} />
           <Route path={ROUTES.HOME} element={<HomePage />} />
-          <Route path={`${ROUTES.PROBLEM}/:problemTitle`} element={<ProblemPageWrapper />} />
+          {/* <Route path={`${ROUTES.PROBLEM}/:problemTitle`} element={<ProblemPageWrapper />} /> */}
+          <Route path={`${ROUTES.PROBLEM}/:problemSlug`} element={<ProblemPage />} />
           <Route path={ROUTES.PROBLEMS_ALL} element={<ProblemsPage />} />
           <Route path={ROUTES.SIGNUP} element={<SignUpPage />} />
           <Route path={ROUTES.LOGIN} element={<LoginPage />} />

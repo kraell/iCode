@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types';
 import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { 
-    problems1,
+    // problems1,
     // problems2,
 } from 'utils/db';
 import { ProblemsListItem } from 'views/Problems/ProblemsPage/ProblemsList/ProblemsListItem'
@@ -13,7 +13,7 @@ export function ProblemsList(props) {
     try {
         problems = props.problems;
     } catch (error) {
-        problems = problems1;
+        console.error("No problems found! props = ", props);
     }
 
     return (

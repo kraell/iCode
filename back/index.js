@@ -126,6 +126,96 @@ const PROBLEMS = [
         numAcceptedSubmissions: 10,
         numTotalSubmissions: 20,
         dataByLanguage: {}
+    },
+    {
+        problemId: 3,
+        title: "title3",
+        difficulty: "Easy",
+        acceptanceRate: 0.422110284,
+        description: "In this example you have to blah blah blah",
+        examples: [
+            {
+                input: "[ 0, 1, 2, 3, 4 ]",
+                output: "4",
+                explanation: "As you can see, this is arbitrary because I'm making it up so i can use this as an exercise"
+            },
+            {
+                input: "[ 'x', 'y', 'z' ]",
+                output: "null",
+                explanation: "As you can see, this is arbitrary because I'm making it up so i can use this as an exercise"
+            }
+        ],
+        constraints: [
+            "here is constraint #1: 1 <= n < 2",
+            "another constraint here=D"
+        ],
+        hints: [
+            "here is a hint",
+            "here is another hint"
+        ],
+        numAcceptedSubmissions: 10,
+        numTotalSubmissions: 20,
+        dataByLanguage: {}
+    },
+    {
+        problemId: 4,
+        title: "title4",
+        difficulty: "Medium",
+        acceptanceRate: 0.322110284,
+        description: "In this example you have to blah blah blah",
+        examples: [
+            {
+                input: "[ 0, 1, 2, 3, 4 ]",
+                output: "4",
+                explanation: "As you can see, this is arbitrary because I'm making it up so i can use this as an exercise"
+            },
+            {
+                input: "[ 'x', 'y', 'z' ]",
+                output: "null",
+                explanation: "As you can see, this is arbitrary because I'm making it up so i can use this as an exercise"
+            }
+        ],
+        constraints: [
+            "here is constraint #1: 1 <= n < 2",
+            "another constraint here=D"
+        ],
+        hints: [
+            "here is a hint",
+            "here is another hint"
+        ],
+        numAcceptedSubmissions: 10,
+        numTotalSubmissions: 20,
+        dataByLanguage: {}
+    },
+    {
+        problemId: 5,
+        title: "title5",
+        difficulty: "Hard",
+        acceptanceRate: 0.122110284,
+        description: "In this example you have to blah blah blah",
+        examples: [
+            {
+                input: "[ 0, 1, 2, 3, 4 ]",
+                output: "4",
+                explanation: "As you can see, this is arbitrary because I'm making it up so i can use this as an exercise"
+            },
+            {
+                input: "[ 'x', 'y', 'z' ]",
+                output: "null",
+                explanation: "As you can see, this is arbitrary because I'm making it up so i can use this as an exercise"
+            }
+        ],
+        constraints: [
+            "here is constraint #1: 1 <= n < 2",
+            "another constraint here=D"
+        ],
+        hints: [
+            "here is a hint",
+            "here is another hint"
+        ],
+        numAcceptedSubmissions: 10,
+        numTotalSubmissions: 20,
+        dataByLanguage: {}
     }
 ];
 
@@ -138,6 +228,24 @@ function generateRandomToken(length) {
     return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
 }
 
+function sanitizeTitleForURL(title) {
+    if (!title) {
+        return ""
+    }
+    // Replace spaces with hyphens and convert to lowercase
+    // SYKE: do not capitalize words until we figure out some way to know which
+    // ones were NOT capitalized in the original title
+    // print("title given for URL:", title.replace(/\s+/g, '-').toLowerCase()) // TODO: figure out why this line in particular causes the print dialog prompt to show up in Chrome
+    return title.replace(/\s+/g, '-');//.toLowerCase();
+}
+
+function desanitizeTitleFromURL(title) {
+    // Replace hyphens with spaces and capitalize words
+    // SYKE: do not capitalize words until we figure out some way to know which
+    // ones were NOT capitalized in the original title
+    return title.replace(/-/g, ' ');//.replace(/\b\w/g, word => word.toUpperCase());
+}
+
 
 // Basic health check endpoint. Does nothing.
 app.get('/', (req, res) => {
@@ -148,11 +256,12 @@ app.get('/', (req, res) => {
 
 
 // Unauthenticated endpoint, open to world.
-app.get('/problems', (req, res) => {
+app.get('/problemset/all', (req, res) => {
+    console.log('[/problemset/all]');
     // Return the client all the questions in the PROBLEMS array
     // NOTE: Only need certain data for problems list
     const filteredProblems = PROBLEMS.map(p => ({
-        problemproblemId: p.problemId,
+        problemId: p.problemId,
         title: p.title,
         difficulty: p.difficulty,
         acceptanceRate: p.acceptanceRate,
@@ -164,10 +273,12 @@ app.get('/problems', (req, res) => {
 });
 
 
-// Return all data on problem with the given ID
-app.get('/problems/:id', (req, res) => {
-    const id = req.params.id;
-    const problem = PROBLEMS.find(p => p.problemId == id);
+// Return all data on problem with the given slug
+app.get('/problems/:problemSlug', (req, res) => {
+    console.log('[/problems/:problemSlug] req.params =', req.params);
+    const problemSlug = req.params.problemSlug;
+    const problemTitle = desanitizeTitleFromURL(problemSlug);
+    const problem = PROBLEMS.find(p => p.title == problemTitle);
     if (!problem) {
         return res.status(411).json({});
     }
@@ -178,6 +289,7 @@ app.get('/problems/:id', (req, res) => {
 
 
 app.get('/me', auth, (req, res) => {
+    console.log('[/signup]');
     const user = USERS.find(u => u.userId == req.userId);
      // Don't want to return password in plaintext
     const { password, ...user_without_password } = user;
@@ -188,8 +300,8 @@ app.get('/me', auth, (req, res) => {
 
 
 app.post('/signup', (req, res) => {
+    console.log('[/signup] req.body =', req.body);
     // Decode body, which should have email and password
-    console.log('[/signup] req.body =', req.body)
     const email = req.body.email;
     const password = req.body.password;
 
@@ -215,8 +327,8 @@ app.post('/signup', (req, res) => {
 
 
 app.post('/login', (req, res) => {
+    console.log('[/login] req.body =', req.body);
     // Decode body, which should have email and password
-    console.log('[/login] req.body =', req.body)
     const email = req.body.email;
     const password = req.body.password;
 
@@ -281,6 +393,7 @@ app.get('/submissions/:problemId', auth, (req, res) => {
 
 
 app.post('/submissions', auth, (req, res) => {
+    console.log('[/submissions] req.body =', req.body);
     // Let the user submit a problem, randomly accept or reject the solution
     const isCorrect = Math.random() < 0.5;
     const problemId = req.body.problemId;
