@@ -1,10 +1,6 @@
 import { PropTypes } from 'prop-types';
 import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { 
-    // problems1,
-    // problems2,
-} from 'utils/db';
 import { ProblemsListItem } from 'views/Problems/ProblemsPage/ProblemsList/ProblemsListItem'
 
 

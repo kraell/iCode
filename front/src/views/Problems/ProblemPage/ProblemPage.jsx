@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { 
-    // problems1,
-    // problems2, 
     languages,
 } from 'utils/db';
 import { ProblemDetail } from 'views/Problems/ProblemPage/ProblemDetail';
@@ -36,7 +34,6 @@ export function ProblemPage() {
             return <FourOhFour />;
         } else {
             // Set problem
-            console.log(`SETTING problem to`, json.problem);
             setProblem(json.problem);
         }
     };

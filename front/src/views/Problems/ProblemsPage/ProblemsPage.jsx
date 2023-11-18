@@ -3,10 +3,6 @@ import { PropTypes } from 'prop-types';
 import { Button, ButtonGroup, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-// import { 
-//     problems1,
-//     problems2,
-// } from 'utils/db';
 import { ProblemsList } from "views/Problems/ProblemsPage/ProblemsList/ProblemsList";
 import { ROUTES } from "utils/routes";
 
