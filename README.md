@@ -3,14 +3,14 @@ This is a miniature [LeetCode](https://leetcode.com/)-esque application built wi
 
 ## Features
 1. User registration
-   1. // TODO: Role-based user authorization
+   1. `// TODO:` Role-based user authorization
 2. React.js/Vite-based interface
 3. Node.js-based REST API serving public and user-specific data
-4. // TODO: Database to store users, user submissions, and coding problems
+4. `// TODO:` Database to store users, user submissions, and coding problems
 5. Dynamic list of LeetCode-style coding problems
-   1. // TODO: Ability to create questions for admins
+   1. `// TODO:` Ability to create questions for admins
 6. Ability for users to submit solutions for coding problems (feedback on code "correctness" is random)
-   1. // TODO: Containerized execution of user-submitted code
+   1. `// TODO:` Containerized execution of user-submitted code
 
 ## Using the App
 1. Set up Node.js and npm
