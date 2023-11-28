@@ -19,9 +19,9 @@ This is a miniature [LeetCode](https://leetcode.com/)-esque application built wi
 2. Clone this repository
    * `$ git clone git@github.com:kraell/iCode.git`
    * `$ cd iCode`
-   * While front-end code and back-end code could be combined into one directory, I've decided to keep them divided as to stay consistent in the separation of concerns, despite the small size of the codebase.
 
 3. Launch application(s)
+   * While front-end code and back-end code could be combined into one directory, I've decided to keep them divided as to stay consistent in the separation of concerns, despite the small size of the codebase.
    - Front-end (in terminal window #1)
      1. `$ cd front`
      2. Install dependencies
