@@ -1,3 +1,4 @@
+// TODO: Move this to application state
 export const languages = [
     {
         "name": "JavaScript",
