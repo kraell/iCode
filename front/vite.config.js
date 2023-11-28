@@ -15,16 +15,3 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => ({
       port: 10019,
     },
 }))
-
-// export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => ({
-//   plugins: [
-//     react(),
-//     jsconfigPaths("root")
-//   ],
-//   server: {
-//     port: 5137
-//   },
-//   preview: {
-//     port: 5137
-//   }
-// }))
