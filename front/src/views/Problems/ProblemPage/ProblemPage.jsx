@@ -99,6 +99,40 @@ export function ProblemPage() {
         console.log('User just typed: ', e.target.value);
     };
 
+    const handleRunCode = () => {
+        console.log(`User clicked 'Run'`);
+        alert("TODO: run this code in containerized environment and display output")
+    };
+
+    const handleSubmitCode = async () => {
+        console.log(`User clicked 'Submit'`);
+        const submission = {
+            problemId: problem.problemId,
+            language: selectedLanguage,
+            code: codeSnippet
+        };
+        const jsonbody = JSON.stringify(submission);
+        console.log(`Fetching http://localhost:3000${ROUTES.SUBMIT_CODE}`);
+        const response = await fetch(`http://localhost:3000${ROUTES.SUBMIT_CODE}`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': localStorage.getItem('token')
+            },
+            body: jsonbody
+        });
+        console.log("response:", response);
+        const json = await response.json();
+        console.log("response (JSON):", json);
+
+        if (!response.ok) {
+            alert(`There was some trouble submitting your code. Try again later, and make sure you're logged in.`);
+        } else {
+            // Set problem
+            alert(`Your code's status: ${json.status}`);
+        }
+    };
+
     return (!problem ? <FourOhFour /> : (
         <Container>
             <Row style={{display: "flex"}}>
@@ -130,8 +164,9 @@ export function ProblemPage() {
                     <Form.Control as="textarea" placeholder={""} value={codeSnippet} rows={10} style={{height: "79%", fontFamily: 'Courier', fontSize: '14px'}} onChange={handleCodeChange} />
                     {/* Display Run and Submit buttons */}
                     <br />
-                    <Button variant="primary" onClick={console.log(`User clicked 'Run'`)} disabled={!validLanguageIsSelected}>Run</Button>{' '}
-                    <Button variant="success" onClick={console.log(`User clicked 'Submit'`)} disabled={!validLanguageIsSelected}>Submit</Button>
+                    <Button variant="primary" onClick={handleRunCode} disabled={!validLanguageIsSelected}>Run</Button>
+                    {' '}
+                    <Button variant="success" onClick={handleSubmitCode} disabled={!validLanguageIsSelected}>Submit</Button>
                 </Col>
             </Row>
         </Container>

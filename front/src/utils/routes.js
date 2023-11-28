@@ -5,6 +5,9 @@ export const ROUTES = {
     PROBLEMS_ALL: "/problemset/all",
     LOGIN: "/login",
     SIGNUP: "/signup",
+    SUBMISSIONS: "/submissions",
+    SUBMIT_CODE: "/submit",
+    RUN_CODE: "/run",
     OTHER: "*"
 }
   

@@ -31,12 +31,14 @@ export function LoginForm() {
             },
             body: jsonbody
         });
-        console.log(response);
+        console.log("got response");
         const json = await response.json();
         localStorage.setItem("token", json.token); // save token for user
-        console.log(json);
+        console.log("decoded JSON from response");
+        
         if (response.ok) {
-            alert(`${email} is now logged in with token: ${json.token}!`)
+            alert(`${email} is now logged in with token: ${json.token}!`) // For testing; DO NOT DEPLOY
+            alert(`${email} is now logged in!`)
         } else {
             alert(`[${json.msg}]`)
         }

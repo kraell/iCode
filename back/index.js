@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 let USER_ID_COUNTER = 1;
 const cors = require("cors");
 app.use(cors());
-app.use(express.json()); // Middleware to parse JSON requests
+app.use(express.json());
 
 const USERS = [
     // {
@@ -348,12 +348,12 @@ app.post('/login', (req, res) => {
         });
     }
 
-    // If password is correct, return back 200 status code to client
-    // Also send back a token (any random string with do for now)
-    // const token = generateRandomToken(264);
-    const token = jwt.sign({
-        id: user.id
-    }, JWT_SECRET);
+    const token = jwt.sign(
+        {
+            userId: user.userId,
+        }, 
+        JWT_SECRET
+    );
     
     return res.json({ token });
 });
@@ -392,19 +392,22 @@ app.get('/submissions/:problemId', auth, (req, res) => {
 });
 
 
-app.post('/submissions', auth, (req, res) => {
-    console.log('[/submissions] req.body =', req.body);
-    // Let the user submit a problem, randomly accept or reject the solution
-    const isCorrect = Math.random() < 0.5;
+app.post('/submit', auth, (req, res) => {
+    console.log('[/submit] req.body =', req.body);
+    // Let the logged-in user submit a problem, randomly accept or reject the solution
     const problemId = req.body.problemId;
-    const submission = req.body.submission;
+    const language = req.body.language;
+    const code = req.body.code;
 
     const newSubmission = {
-        submission,
         problemId,
+        language,
+        code,
         userId: req.userId,
         // status: "REJ"
     };
+    
+    const isCorrect = Math.random() < 0.5;
     if (isCorrect) {
         newSubmission.status = "ACC";
     } else {
@@ -421,9 +424,34 @@ app.post('/submissions', auth, (req, res) => {
 });
 
 
-// TODO:
-// Create a route that lets an admin add a new problem
-// ensure that only admins can do that
+app.post('/run', auth, (req, res) => {
+    console.log('[/run] req.body =', req.body);
+    // Let the logged-in user test a problem, randomly accept or reject the solution
+    const problemId = req.body.problemId;
+    const language = req.body.language;
+    const code = req.body.code;
+    const tests = req.body.tests;
+
+    const newSubmission = {
+        problemId,
+        language,
+        code,
+        userId: req.userId,
+        // status: "REJ"
+    };
+    
+    const isCorrect = Math.random() < 0.5;
+    if (isCorrect) {
+        newSubmission.status = "ACC";
+    } else {
+        newSubmission.status = "REJ";
+    }
+
+    // Return the status of the submission to the client
+    return res.json({ 
+        status: newSubmission.status
+    });
+});
 
 
 ////////////////////////////////////////////////////////////////////////////////
