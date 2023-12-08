@@ -15,7 +15,7 @@ const USERS = [
     //     userId: 1,
     //     email: "keegan1@gmail.com",
     //     password: "123pass",
-    //     is_admin: false
+    //     is_admin: true
     // }
 ];
 
@@ -220,7 +220,22 @@ const PROBLEMS = [
 ];
 
 const SUBMISSIONS = [
-
+    // {
+    //     time: 12412.312,
+    //     userId: 1,
+    //     problemId: 0,
+    //     language: "py",
+    //     code: "yeet this code is perfect",
+    //     status: "REJ",
+    // },
+    // {
+    //     time: 12444.23122,
+    //     userId: 1,
+    //     problemId: 0,
+    //     language: "py",
+    //     code: "do re mi python code 4ever except nope, this is wrong",
+    //     status: "ACC",
+    // },
 ];
 
 
@@ -362,11 +377,11 @@ app.post('/login', (req, res) => {
 app.get('/submissions/:problemId', auth, (req, res) => {
     console.log('[/submissions/:problemId] req.body =', req.body);
     const userId = req.userId; // Provided by auth middleware
-    const problemId = req.params.problemId; // Assuming the problem's ID is provided as a query parameter
+    const problemId = parseInt(req.params.problemId); // Assuming the problem's ID is provided as a query parameter
     const submissions = SUBMISSIONS.filter(s => s.problemId === problemId && s.userId === req.userId);
 
     console.log('[/submissions/:problemId] req.userId =', req.userId);
-    console.log('[/submissions/:problemId] req.query.problemId =', req.query.problemId);
+    console.log('[/submissions/:problemId] req.params.problemId =', req.params.problemId);
 
     // Error check
     // This is somewhat intensive so only do it if submissions comes up empty
