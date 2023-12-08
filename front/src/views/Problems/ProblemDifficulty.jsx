@@ -17,5 +17,5 @@ export function Difficulty(props) {
     );
 }
 Difficulty.propTypes = {
-    level: PropTypes.string.isRequired,
+    level: PropTypes.string,
 };

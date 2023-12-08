@@ -53,7 +53,7 @@ ProblemsListItem.propTypes = {
     index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     acceptanceRate: PropTypes.number.isRequired,
-    difficulty: PropTypes.string.isRequired,
+    difficulty: PropTypes.string,
     description: PropTypes.string,
     examples: PropTypes.arrayOf(Object),
 };
